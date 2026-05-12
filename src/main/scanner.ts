@@ -300,7 +300,7 @@ export function parsePortRange(rangeStr: string): number[] {
       const [startStr, endStr] = part.split('-').map(s => s.trim());
       const start = parseInt(startStr, 10);
       const end = parseInt(endStr, 10);
-      if (!isNaN(start) && !isNaN(end) && start > 0 && end <= 65535) {
+      if (!isNaN(start) && !isNaN(end) && Math.min(start, end) > 0 && Math.max(start, end) <= 65535) {
         for (let p = Math.min(start, end); p <= Math.max(start, end); p++) {
           ports.add(p);
         }
@@ -645,7 +645,7 @@ export function updateDeviceHistory(currentDevices: NetworkDevice[]): DeviceHist
   const currentIps = new Set(currentDevices.map(d => d.ip));
 
   for (const device of currentDevices) {
-    const existing = history.find(h => h.mac === device.mac || h.ip === device.ip);
+    const existing = history.find(h => (h.mac !== 'unknown' && h.mac === device.mac) || h.ip === device.ip);
     if (existing) {
       existing.lastSeen = now;
       existing.status = 'online';

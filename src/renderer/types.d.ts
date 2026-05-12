@@ -124,6 +124,7 @@ declare global {
       getTheme: () => Promise<string>;
       setTheme: (theme: string) => Promise<void>;
       saveFile: (content: string, defaultName: string) => Promise<boolean>;
+      onTriggerScan: (callback: () => void) => () => void;
     };
   }
 }

@@ -92,6 +92,11 @@ function App() {
 
   useEffect(() => { loadInterfaces(); }, [loadInterfaces]);
 
+  useEffect(() => {
+    const cleanup = window.netscan.onTriggerScan(() => { startScan(); });
+    return cleanup;
+  }, [startScan]);
+
   const handleDeviceSelect = (device: NetworkDevice) => {
     setSelectedDevice(device);
     setView('ports');

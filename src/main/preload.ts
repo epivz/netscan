@@ -86,6 +86,12 @@ const api = {
   // File dialogs
   saveFile: (content: string, defaultName: string): Promise<boolean> =>
     ipcRenderer.invoke('save-file', content, defaultName),
+
+  // Tray trigger
+  onTriggerScan: (callback: () => void) => {
+    ipcRenderer.on('trigger-scan', () => callback());
+    return () => { ipcRenderer.removeAllListeners('trigger-scan'); };
+  },
 };
 
 contextBridge.exposeInMainWorld('netscan', api);
