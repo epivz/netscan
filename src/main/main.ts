@@ -52,8 +52,10 @@ function createWindow(): void {
     mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
   }
 
+  let isQuitting = false;
+  app.on('before-quit', () => { isQuitting = true; });
   mainWindow.on('close', (event) => {
-    if (tray) {
+    if (tray && !isQuitting) {
       event.preventDefault();
       mainWindow?.hide();
     }

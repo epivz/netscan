@@ -651,6 +651,8 @@ export function updateDeviceHistory(currentDevices: NetworkDevice[]): DeviceHist
       existing.status = 'online';
       existing.ip = device.ip;
       existing.hostname = device.hostname || existing.hostname;
+      if (device.mac !== 'unknown') existing.mac = device.mac;
+      if (device.vendor !== 'Unknown') existing.vendor = device.vendor;
     } else {
       history.push({
         ip: device.ip, mac: device.mac, hostname: device.hostname,
