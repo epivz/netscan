@@ -1,6 +1,9 @@
 node_modules/
 dist/
 out/
+release/
 .env
 *.log
 .DS_Store
+test-plan.md
+test-report.md
